@@ -1,0 +1,62 @@
+# Configuration for the "Labeler" workflow (.github/workflows/label.yml).
+# Applies labels to pull requests based on the paths of changed files.
+# See: https://github.com/actions/labeler
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+          - 'docs/**/*'
+
+go:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.go'
+          - 'go.mod'
+          - 'go.sum'
+
+exporters:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'pkg/exporters/**/*'
+
+netbird-client:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'pkg/netbird/**/*'
+
+utils:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'pkg/utils/**/*'
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'tests/**/*'
+          - '**/*_test.go'
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/workflows/**/*'
+          - '.github/**/*.yml'
+
+docker:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'Dockerfile'
+          - 'docker-compose.yml'
+          - '.dockerignore'
+
+helm:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'charts/**/*'
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'go.mod'
+          - 'go.sum'
+          - '.github/dependabot.yml'

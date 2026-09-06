@@ -15,7 +15,6 @@ permissions:
   actions: read
 
 env:
-  GO_VERSION: '1.24'
   COVERAGE_THRESHOLD: 80  # Minimum coverage percentage required
 
 jobs:
@@ -27,18 +26,18 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0  # Fetch full history for accurate coverage comparison
 
     - name: Set up Go
-      uses: actions/setup-go@v6
+      uses: actions/setup-go@v7
       with:
-        go-version: ${{ env.GO_VERSION }}
+        go-version-file: go.mod
         cache: true
 
     - name: Cache Go modules
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: |
           ~/.cache/go-build
@@ -51,7 +50,6 @@ jobs:
       run: |
         go mod download
         go mod verify
-        go mod tidy
 
     - name: Run tests with coverage
       run: |
@@ -100,7 +98,7 @@ jobs:
         curl -s "https://img.shields.io/badge/coverage-$COVERAGE%25-$COLOR" > badges/coverage.svg
 
     - name: Upload coverage reports
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: coverage-reports
         path: |
@@ -109,7 +107,7 @@ jobs:
         retention-days: 30
 
     - name: Upload to Codecov
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v7
       with:
         file: coverage/coverage.out
         flags: unittests
@@ -121,7 +119,7 @@ jobs:
 
     - name: Comment PR with coverage
       if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-      uses: actions/github-script@v8
+      uses: actions/github-script@v9
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -179,17 +177,15 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Set up Go
-      uses: actions/setup-go@v6
+      uses: actions/setup-go@v7
       with:
-        go-version: ${{ env.GO_VERSION }}
+        go-version-file: go.mod
 
     - name: Download dependencies
-      run: |
-        go mod download
-        go mod tidy
+      run: go mod download
 
     - name: Make scripts executable
       run: chmod +x scripts/setup-test-netbird.sh scripts/teardown-test-netbird.sh
@@ -203,7 +199,7 @@ jobs:
         GO111MODULE=on go test -v -timeout=5m -run="Integration_" -coverprofile=integration-coverage.out ./...
 
     - name: Upload integration coverage
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: integration-coverage
         path: integration-coverage.out
@@ -219,17 +215,15 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Set up Go
-      uses: actions/setup-go@v6
+      uses: actions/setup-go@v7
       with:
-        go-version: ${{ env.GO_VERSION }}
+        go-version-file: go.mod
 
     - name: Download dependencies
-      run: |
-        go mod download
-        go mod tidy
+      run: go mod download
 
     - name: Run performance tests
       run: |
@@ -242,7 +236,7 @@ jobs:
         GO111MODULE=on go test -bench=. -benchmem -run=^$ ./... > benchmarks.txt
 
     - name: Upload benchmark results
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: benchmark-results
         path: benchmarks.txt
@@ -255,7 +249,7 @@ jobs:
     
     steps:
     - name: Checkout PR code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Checkout main branch
       run: |
@@ -263,9 +257,9 @@ jobs:
         git checkout main
 
     - name: Set up Go
-      uses: actions/setup-go@v6
+      uses: actions/setup-go@v7
       with:
-        go-version: ${{ env.GO_VERSION }}
+        go-version-file: go.mod
 
     - name: Get main branch coverage
       run: |
@@ -275,7 +269,7 @@ jobs:
         echo "main_coverage=$MAIN_COVERAGE" >> $GITHUB_ENV
 
     - name: Compare coverage
-      uses: actions/github-script@v8
+      uses: actions/github-script@v9
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |

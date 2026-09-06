@@ -7,6 +7,150 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.16] - 2026-09-06
+
+## [0.2.15] - 2026-09-06
+
+## [0.2.14] - 2026-09-06
+
+## [0.2.13] - 2026-09-06
+
+## [0.2.12] - 2026-08-25
+
+## [0.2.11] - 2026-08-24
+
+
+### Bugfix
+- Stop the NetBird integration test setup from timing out in CI by raising the readiness budget to 240s, pulling images before the wait starts, and failing immediately if the container stops instead of waiting out the full budget
+
+## [0.2.10] - 2026-08-23
+
+## [0.2.9] - 2026-08-23
+
+## [0.2.8] - 2026-08-23
+
+
+### Bugfix
+- Fix the Labeler workflow failing on every pull request by migrating .github/labeler.yml to the actions/labeler v5+ match-object syntax
+- Grant the Labeler workflow `issues: write` so it can create labels declared in .github/labeler.yml that do not yet exist in the repository
+- Fix the lint workflow failing with a golangci-lint panic by pinning Go to the version declared in go.mod instead of the floating stable release
+
+### Features
+- Upgrade to Go 1.27 (build, test, lint and release toolchains); building from source now requires Go 1.27 or newer
+- Unify every Go version pin on `go-version-file: go.mod` so go.mod is the single source of truth, replacing the four different versions previously pinned across go.mod, Dockerfile, mise.toml and the workflows
+- Bump golangci-lint to v2.13.1, the first release built with go1.27
+
+## [0.2.7] - 2026-08-14
+
+## [0.2.6] - 2026-08-02
+
+## [0.2.5] - 2026-07-30
+
+## [0.2.4] - 2026-07-22
+
+## [0.2.3] - 2026-07-22
+
+
+### Features
+- Add .github/labeler.yml configuration for the Labeler workflow
+
+## [0.2.2] - 2026-07-14
+
+## [0.2.1] - 2026-07-08
+
+### Features
+- Add Setup Keys exporter exposing setup key validity, revocation, ephemeral status, usage, expiration, and auto-group metrics
+- Add Policies exporter exposing policy and rule counts grouped by enabled status, protocol, and action
+- Add Routes exporter exposing route counts grouped by enabled status, network type, and masquerade status
+
+### Tests
+- Add integration tests covering the Setup Keys, Policies, and Routes exporters against a live NetBird API
+
+## [0.1.100] - 2026-07-01
+
+## [0.1.99] - 2026-06-23
+
+## [0.1.98] - 2026-06-16
+
+## [0.1.97] - 2026-05-30
+
+## [0.1.96] - 2026-05-16
+
+## [0.1.95] - 2026-05-10
+
+## [0.1.94] - 2026-05-08
+
+## [0.1.93] - 2026-04-30
+
+## [0.1.92] - 2026-04-12
+
+## [0.1.91] - 2026-04-12
+
+## [0.1.90] - 2026-04-08
+
+## [0.1.89] - 2026-03-28
+
+## [0.1.88] - 2026-03-28
+
+## [0.1.87] - 2026-03-21
+
+## [0.1.86] - 2026-03-14
+
+## [0.1.85] - 2026-03-13
+
+## [0.1.84] - 2026-03-10
+
+## [0.1.83] - 2026-03-10
+
+
+### Features
+- Configure Dependabot to group all updates by ecosystem into single PRs
+Files modified in this change:
+- Modified: .github/dependabot.yml
+
+### Bugfix
+- Fix flaky Helm chart tests caused by network unreachability, premature test pod deployment, and port-forward race condition
+Files modified in this change:
+- Modified: .github/workflows/test.yml
+
+## [0.1.82] - 2026-03-07
+
+
+### Features
+- Bump github.com/netbirdio/netbird from 0.65.3 to 0.66.0
+Files modified in this change:
+- Modified: CHANGELOG.md
+- Modified: charts/netbird-api-exporter/Chart.yaml
+- Bump actions/upload-artifact from 6 to 7
+Files modified in this change:
+- Modified: CHANGELOG.md
+- Modified: charts/netbird-api-exporter/Chart.yaml
+- Bump actions/download-artifact from 7 to 8
+Files modified in this change:
+- Modified: CHANGELOG.md
+- Modified: charts/netbird-api-exporter/Chart.yaml
+- Bump actions/attest-build-provenance from 3 to 4
+
+## [0.1.81] - 2026-03-02
+
+## [0.1.80] - 2026-02-21
+
+
+### Bugfix
+- Update Ruby version requirement to 3.2 for nokogiri 1.19.1 compatibility
+Files modified in this change:
+- Modified: .github/workflows/docs.yml
+- Modified: docs/Gemfile
+
+## [0.1.79] - 2026-02-17
+
+
+### Bugfix
+- Update Go version to 1.25 in CI workflows to match go.mod requirement
+Files modified in this change:
+- Modified: .github/workflows/coverage.yml
+- Modified: .github/workflows/release.yml
+
 ## [0.1.78] - 2026-02-14
 
 ### Features
